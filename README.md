@@ -1,1 +1,1 @@
-# ThaGame
+# TheGame
