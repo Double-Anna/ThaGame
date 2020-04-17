@@ -21,18 +21,18 @@ class ImageViewer(QWidget):
         VBlayout.addWidget(self.viewer)
         VBlayout.setMargin(0)
 
-        if len(list) > 1:
-            btn_layout = QHBoxLayout()
-            self.btnBack = QPushButton('<')
-            self.btnBack.clicked.connect(self.lastImage)
+        #if len(list) > 1:
+        #    btn_layout = QHBoxLayout()
+        #    self.btnBack = QPushButton('<')
+        #    self.btnBack.clicked.connect(self.lastImage)
 
-            self.btnFoward = QPushButton('>')
-            self.btnFoward.clicked.connect(self.nextImage)
+         #   self.btnFoward = QPushButton('>')
+         #   self.btnFoward.clicked.connect(self.nextImage)
 
-            btn_layout.addWidget(self.btnBack)
-            btn_layout.addWidget(self.btnFoward)
+        #    btn_layout.addWidget(self.btnBack)
+        #    btn_layout.addWidget(self.btnFoward)
 
-            self.layout().addLayout(btn_layout)
+        #    self.layout().addLayout(btn_layout)
 
         self.showNormal()
         self.resize(500, 500)
@@ -86,16 +86,17 @@ class PhotoViewer(QGraphicsView):
 
     def fitInView(self, scale=True):
         rect = QRectF(self._photo.pixmap().rect())
+        print()
         if not rect.isNull():
             self.setSceneRect(rect)
             if self.hasPhoto():
                 unity = self.transform().mapRect(QRectF(0, 0, 1, 1))
                 self.scale(1 / unity.width(), 1 / unity.height())
-                viewrect = self.viewport().rect()
-                scenerect = self.transform().mapRect(rect)
-                factor = min(viewrect.width() / scenerect.width(),
-                             viewrect.height() / scenerect.height())
-                self.scale(factor, factor)
+                #viewrect = self.viewport().rect()
+                #scenerect = self.transform().mapRect(rect)
+                #factor = min(viewrect.width() / scenerect.width(),
+                #             viewrect.height() / scenerect.height())
+                #self.scale(factor, factor)
             self._zoom = 0
 
     def setPhoto(self, pixmap=None):
@@ -139,12 +140,11 @@ class PhotoViewer(QGraphicsView):
             self.photoClicked.emit(QPoint(event.pos()))
         super(PhotoViewer, self).mousePressEvent(event)
 
-#путь к директории с картинками
 path = ''
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    main = ImageViewer(path, list=['huge', 'forest1', 'forest2'])
+    main = ImageViewer(path, list=['Square', 'forest1', 'forest2'])
     main.loadImage()
-    main.resize(500, 500)
+    main.resize(1000, 1000)
     main.show()
     sys.exit(app.exec_())
