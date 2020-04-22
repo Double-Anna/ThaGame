@@ -2,7 +2,7 @@ import os
 import sys
 
 from PySide2.QtCore import QPoint, QRectF, Qt, Signal
-from PySide2.QtGui import QBrush, QColor, QPixmap
+from PySide2.QtGui import QBrush, QColor, QPixmap, QCursor, QImage
 from PySide2.QtWidgets import QApplication, QFrame, QGraphicsPixmapItem, QGraphicsScene, QGraphicsView, QHBoxLayout, QPushButton, QVBoxLayout, QWidget
 
 
@@ -20,19 +20,24 @@ class ImageViewer(QWidget):
         VBlayout = QVBoxLayout(self)
         VBlayout.addWidget(self.viewer)
         VBlayout.setMargin(0)
+        self.setCursor(Qt.ArrowCursor)  # Ничего не понятно, но очень интересно. Курсор не работает, непонятно, почему
+        print(QCursor.pos())
+        self.mapFromGlobal(QCursor.pos())
+        print(QImage.pixel(30, 900))
 
-        #if len(list) > 1:
-        #    btn_layout = QHBoxLayout()
-        #    self.btnBack = QPushButton('<')
-        #    self.btnBack.clicked.connect(self.lastImage)
 
-         #   self.btnFoward = QPushButton('>')
-         #   self.btnFoward.clicked.connect(self.nextImage)
+#        if len(list) > 1:
+#            btn_layout = QHBoxLayout()
+#            self.btnBack = QPushButton('<')
+#            self.btnBack.clicked.connect(self.lastImage)
 
-        #    btn_layout.addWidget(self.btnBack)
-        #    btn_layout.addWidget(self.btnFoward)
+#            self.btnFoward = QPushButton('>')
+#            self.btnFoward.clicked.connect(self.nextImage)
 
-        #    self.layout().addLayout(btn_layout)
+#            btn_layout.addWidget(self.btnBack)
+#            btn_layout.addWidget(self.btnFoward)
+
+#            self.layout().addLayout(btn_layout)
 
         self.showNormal()
 #        self.resize(500, 500)
@@ -51,7 +56,7 @@ class ImageViewer(QWidget):
 #            self.index = len(self.list) - 1
 #        self.loadImage()
 
-    def loadImage(self):
+    def loadImage(self):  # открыть прям открыть
         path = os.path.join(self.path, self.list[self.index]).replace("\\", "/")
         self.viewer.setPhoto(QPixmap(path))
 
@@ -142,8 +147,8 @@ class PhotoViewer(QGraphicsView):
 path = ''
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    main = ImageViewer(path, list=['forest1', 'Square', 'forest2'])
+    main = ImageViewer(path, list=['forest2', 'forest1', 'Square'])
     main.loadImage()
-    main.resize(1000, 1000)
+    main.resize(500, 500)
     main.show()
     sys.exit(app.exec_())
