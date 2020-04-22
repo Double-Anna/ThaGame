@@ -21,40 +21,44 @@ class ImageViewer(QWidget):
         VBlayout.addWidget(self.viewer)
         VBlayout.setMargin(0)
         self.setCursor(Qt.ArrowCursor)  # Ничего не понятно, но очень интересно. Курсор не работает, непонятно, почему
-        print(QCursor.pos())
+        print(QCursor.pos())  # считает с левого верхнего угла
         self.mapFromGlobal(QCursor.pos())
-        print(QImage.pixel(30, 900))
+        #print(QImage.pixel(30, 900))
 
 
-#        if len(list) > 1:
-#            btn_layout = QHBoxLayout()
-#            self.btnBack = QPushButton('<')
-#            self.btnBack.clicked.connect(self.lastImage)
+        if len(list) > 1:
+            btn_layout = QHBoxLayout()
+            self.btnBack = QPushButton('<')
+            self.btnBack.clicked.connect(self.lastImage)
 
-#            self.btnFoward = QPushButton('>')
-#            self.btnFoward.clicked.connect(self.nextImage)
+            self.btnFoward = QPushButton('>')
+            self.btnFoward.clicked.connect(self.nextImage)
 
-#            btn_layout.addWidget(self.btnBack)
-#            btn_layout.addWidget(self.btnFoward)
+            btn_layout.addWidget(self.btnBack)
+            btn_layout.addWidget(self.btnFoward)
 
-#            self.layout().addLayout(btn_layout)
+            self.layout().addLayout(btn_layout)
 
         self.showNormal()
 #        self.resize(500, 500)
 
-#    def nextImage(self):
-#        if self.index < len(self.list) - 1:
-#            self.index += 1
-#        else:
-#            self.index = 0
-#        self.loadImage()
+    def nextImage(self):
+        if self.index < len(self.list) - 1:
+            self.index += 1
+        else:
+            self.index = 0
+        self.loadImage()
+        print(QCursor.pos())
+        print('next')
 
-#    def lastImage(self):
-#        if self.index > 0:
-#            self.index -= 1
-#        else:
-#            self.index = len(self.list) - 1
-#        self.loadImage()
+    def lastImage(self):
+        if self.index > 0:
+            self.index -= 1
+        else:
+            self.index = len(self.list) - 1
+        self.loadImage()
+        print(QCursor.pos())
+        print('last')
 
     def loadImage(self):  # открыть прям открыть
         path = os.path.join(self.path, self.list[self.index]).replace("\\", "/")
@@ -65,7 +69,7 @@ class ImageViewer(QWidget):
 
     def photoClicked(self, pos):
         if self.viewer.dragMode() == QGraphicsView.NoDrag:
-            print(pos)
+            pass
 
 
 class PhotoViewer(QGraphicsView):
