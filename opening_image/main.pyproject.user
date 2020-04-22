@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.11.1, 2020-03-11T14:01:25. -->
+<!-- Written by QtCreator 4.11.1, 2020-04-17T16:51:42. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -143,11 +143,11 @@
     </valuelist>
     <value type="int" key="PE.EnvironmentAspect.Base">2</value>
     <valuelist type="QVariantList" key="PE.EnvironmentAspect.Changes"/>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">main</value>
-    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration.C:/Users/annso/test/outdfzghjilpolikjhgcfd/main.py</value>
-    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/annso/test/outdfzghjilpolikjhgcfd/main.py</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.DisplayName">main2</value>
+    <value type="QString" key="ProjectExplorer.ProjectConfiguration.Id">PythonEditor.RunConfiguration.C:/Users/annso/test/ThaGame/opening_image/main.py</value>
+    <value type="QString" key="ProjectExplorer.RunConfiguration.BuildKey">C:/Users/annso/test/ThaGame/opening_image/main.py</value>
     <value type="QString" key="PythonEditor.RunConfiguation.Interpreter">{17741dc8-6cf7-4f9a-9482-eeb2e89fdf43}</value>
-    <value type="QString" key="PythonEditor.RunConfiguation.Script">C:\Users\annso\test\outdfzghjilpolikjhgcfd\main.py</value>
+    <value type="QString" key="PythonEditor.RunConfiguation.Script">C:\Users\annso\test\ThaGame\opening_image\main.py</value>
     <value type="QString" key="RunConfiguration.Arguments"></value>
     <value type="bool" key="RunConfiguration.Arguments.multi">false</value>
     <value type="QString" key="RunConfiguration.OverrideDebuggerStartup"></value>
@@ -157,7 +157,7 @@
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
     <value type="QString" key="RunConfiguration.WorkingDirectory"></value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">C:/Users/annso/test/outdfzghjilpolikjhgcfd</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">C:/Users/annso/test/ThaGame/opening_image</value>
    </valuemap>
    <value type="int" key="ProjectExplorer.Target.RunConfigurationCount">1</value>
   </valuemap>

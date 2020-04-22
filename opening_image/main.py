@@ -35,32 +35,32 @@ class ImageViewer(QWidget):
         #    self.layout().addLayout(btn_layout)
 
         self.showNormal()
-        self.resize(500, 500)
+#        self.resize(500, 500)
 
-    def nextImage(self):
-        if self.index < len(self.list) - 1:
-            self.index += 1
-        else:
-            self.index = 0
-        self.loadImage()
+#    def nextImage(self):
+#        if self.index < len(self.list) - 1:
+#            self.index += 1
+#        else:
+#            self.index = 0
+#        self.loadImage()
 
-    def lastImage(self):
-        if self.index > 0:
-            self.index -= 1
-        else:
-            self.index = len(self.list) - 1
-        self.loadImage()
+#    def lastImage(self):
+#        if self.index > 0:
+#            self.index -= 1
+#        else:
+#            self.index = len(self.list) - 1
+#        self.loadImage()
 
     def loadImage(self):
         path = os.path.join(self.path, self.list[self.index]).replace("\\", "/")
         self.viewer.setPhoto(QPixmap(path))
 
-    def pixInfo(self):
-        self.viewer.toggleDragMode()
+#    def pixInfo(self):
+#        self.viewer.toggleDragMode()
 
     def photoClicked(self, pos):
         if self.viewer.dragMode() == QGraphicsView.NoDrag:
-            pass
+            print(pos)
 
 
 class PhotoViewer(QGraphicsView):
@@ -78,19 +78,18 @@ class PhotoViewer(QGraphicsView):
         self.setResizeAnchor(QGraphicsView.AnchorUnderMouse)
         self.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
-        self.setBackgroundBrush(QBrush(QColor(30, 30, 30)))
+        self.setBackgroundBrush(QBrush(QColor(0, 0, 0)))  # цвет фона
         self.setFrameShape(QFrame.NoFrame)
 
     def hasPhoto(self):
         return not self._empty
 
-    def fitInView(self, scale=True):
-        rect = QRectF(self._photo.pixmap().rect())
-        print()
+    def fitInView(self, scale=True):  # регулировка размеров. Пришли из setPhoto
+        rect = QRectF(self._photo.pixmap().rect())  # в скобках - дает размер картинки (можно дать, чо хочешь)
         if not rect.isNull():
             self.setSceneRect(rect)
             if self.hasPhoto():
-                unity = self.transform().mapRect(QRectF(0, 0, 1, 1))
+                unity = self.transform().mapRect(QRectF(0, 0, 1, 1))  # Соотношение сторон картинки к тому, что хотим. Два последних. первые - непонятнаа
                 self.scale(1 / unity.width(), 1 / unity.height())
                 #viewrect = self.viewport().rect()
                 #scenerect = self.transform().mapRect(rect)
@@ -99,7 +98,7 @@ class PhotoViewer(QGraphicsView):
                 #self.scale(factor, factor)
             self._zoom = 0
 
-    def setPhoto(self, pixmap=None):
+    def setPhoto(self, pixmap=None):  # подгружает фото (пришли сюда из loadImage)
         self._zoom = 0
         if pixmap and not pixmap.isNull():
             self._empty = False
@@ -129,11 +128,11 @@ class PhotoViewer(QGraphicsView):
                 else:
                     self._zoom = -10
 
-    def toggleDragMode(self):
-        if self.dragMode() == QGraphicsView.ScrollHandDrag:
-            self.setDragMode(QGraphicsView.NoDrag)
-        elif not self._photo.pixmap().isNull():
-            self.setDragMode(QGraphicsView.ScrollHandDrag)
+#    def toggleDragMode(self):  # использован в PixInfopp
+#        if self.dragMode() == QGraphicsView.ScrollHandDrag:
+#            self.setDragMode(QGraphicsView.NoDrag)
+#        elif not self._photo.pixmap().isNull():
+#            self.setDragMode(QGraphicsView.ScrollHandDrag)
 
     def mousePressEvent(self, event):
         if self._photo.isUnderMouse():
@@ -143,7 +142,7 @@ class PhotoViewer(QGraphicsView):
 path = ''
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    main = ImageViewer(path, list=['Square', 'forest1', 'forest2'])
+    main = ImageViewer(path, list=['forest1', 'Square', 'forest2'])
     main.loadImage()
     main.resize(1000, 1000)
     main.show()
