@@ -2,16 +2,15 @@ import os
 import sys
 
 from PySide2.QtCore import QPoint, QRectF, Qt, Signal
-from PySide2.QtGui import QBrush, QColor, QPixmap, QCursor, QImage
+from PySide2.QtGui import QBrush, QColor, QPixmap, QImage
 from PySide2.QtWidgets import QApplication, QFrame, QGraphicsPixmapItem, QGraphicsScene, QGraphicsView, QHBoxLayout, QPushButton, QVBoxLayout, QWidget
-
 
 class ImageViewer(QWidget):
     def __init__(self, path=None, list=[], index=0):
         super(ImageViewer, self).__init__()
         self.path = path
         self.index = index
-        self.list = list
+        self.lst = list
         self.viewer = PhotoViewer(self)
         self.setWindowFlags(Qt.WindowStaysOnTopHint)
 
@@ -20,10 +19,6 @@ class ImageViewer(QWidget):
         VBlayout = QVBoxLayout(self)
         VBlayout.addWidget(self.viewer)
         VBlayout.setMargin(0)
-        self.setCursor(Qt.ArrowCursor)  # Ничего не понятно, но очень интересно. Курсор не работает, непонятно, почему
-        print(QCursor.pos())  # считает с левого верхнего угла
-        self.mapFromGlobal(QCursor.pos())
-        #print(QImage.pixel(30, 900))
 
 
         if len(list) > 1:
@@ -43,25 +38,21 @@ class ImageViewer(QWidget):
 #        self.resize(500, 500)
 
     def nextImage(self):
-        if self.index < len(self.list) - 1:
+        if self.index < len(self.lst) - 1:
             self.index += 1
         else:
             self.index = 0
         self.loadImage()
-        print(QCursor.pos())
-        print('next')
 
     def lastImage(self):
         if self.index > 0:
             self.index -= 1
         else:
-            self.index = len(self.list) - 1
+            self.index = len(self.lst) - 1
         self.loadImage()
-        print(QCursor.pos())
-        print('last')
 
     def loadImage(self):  # открыть прям открыть
-        path = os.path.join(self.path, self.list[self.index]).replace("\\", "/")
+        path = os.path.join(self.path, self.lst[self.index]).replace("\\", "/")
         self.viewer.setPhoto(QPixmap(path))
 
 #    def pixInfo(self):
@@ -77,6 +68,7 @@ class PhotoViewer(QGraphicsView):
 
     def __init__(self, parent):
         super(PhotoViewer, self).__init__(parent)
+        self._img = None
         self._zoom = 0
         self._empty = True
         self._scene = QGraphicsScene(self)
@@ -144,8 +136,12 @@ class PhotoViewer(QGraphicsView):
 #            self.setDragMode(QGraphicsView.ScrollHandDrag)
 
     def mousePressEvent(self, event):
+        # print(event, file=sys.stderr)
         if self._photo.isUnderMouse():
-            self.photoClicked.emit(QPoint(event.pos()))
+            if self._img is None:
+                self._img = self._photo.pixmap().toImage()
+            pos = event.pos()
+            self.photoClicked.emit(pos)
         super(PhotoViewer, self).mousePressEvent(event)
 
 path = ''
